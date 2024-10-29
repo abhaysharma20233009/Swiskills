@@ -1,7 +1,8 @@
-const User = require('../models/userModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
-const factory = require('./handlerFactory');
+const User = require("../models/userModel");
+const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
+const factory = require("./handlerFactory");
+const Skill = require("../models/skillsModel");
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -21,7 +22,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
-        'This route is not for password update.Please use updateMyPassword',
+        "This route is not for password update.Please use updateMyPassword",
         400
       )
     );
@@ -31,11 +32,11 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   // x = req.body we can't do because user can change other field like role or passwordResetToken or etc.
   const filteredBody = filterObj(
     req.body,
-    'name',
-    'email',
-    'bio',
-    'skills',
-    'profilePicture'
+    "name",
+    "email",
+    "bio",
+    "skills",
+    "profilePicture"
   );
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
@@ -43,8 +44,21 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     runValidators: true,
   });
 
+  // updating the user id in skill collection
+  if (updatedUser?.skills?.length) {
+    await Promise.all(
+      updatedUser.skills.map(async (skill) => {
+        const skillDoc = await Skill.findOneAndUpdate(
+          { name: skill },
+          { $addToSet: { users: updatedUser._id } },
+          { new: true } // Returns the updated document
+        );
+      })
+    );
+  }
+
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       user: updatedUser,
     },
@@ -54,7 +68,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
-    status: 'success',
+    status: "success",
     data: null,
   });
 });

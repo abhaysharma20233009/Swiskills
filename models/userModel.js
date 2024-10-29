@@ -2,7 +2,8 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const { type } = require('os');
+const Skill = require('./skillsModel');
+const catchAsync = require('../utils/catchAsync');
 //name,email,photo,password,passwordConfrim
 
 const userSchema = new mongoose.Schema({
@@ -26,9 +27,7 @@ const userSchema = new mongoose.Schema({
   profilePicture: {
     type: String,
   },
-  skills: {
-    type: Array,
-  },
+  skills: [{ type: String }],
   bio: {
     type: String,
     maxlength: 500,
@@ -99,6 +98,33 @@ userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
+
+// Middleware to update Skill model when a skill is added to a user
+userSchema.post(
+  'save',
+  catchAsync(async function (doc) {
+    console.log('User saved:', doc);
+    if (doc?.skills?.length) {
+      console.log('Updating skills for:', doc.skills);
+      await Promise.all(
+        doc.skills.map(async (skill) => {
+          console.log('Finding skill:', skill);
+          const skillDoc = await Skill.findOne({ name: skill });
+          if (skillDoc) {
+            console.log('Skill found:', skillDoc);
+            skillDoc.users.addToSet(doc._id);
+            await skillDoc.save();
+            console.log('Updated skill:', skillDoc);
+          } else {
+            console.log('Skill not found:', skill);
+          }
+        })
+      );
+    } else {
+      console.log('No skills to update for user:', doc._id);
+    }
+  })
+);
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
