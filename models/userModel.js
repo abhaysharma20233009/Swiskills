@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const { type } = require('os');
 //name,email,photo,password,passwordConfrim
 
 const userSchema = new mongoose.Schema({
@@ -25,12 +26,9 @@ const userSchema = new mongoose.Schema({
   profilePicture: {
     type: String,
   },
-  skills: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Skill',
-    },
-  ],
+  skills: {
+    type: Array,
+  },
   bio: {
     type: String,
     maxlength: 500,
