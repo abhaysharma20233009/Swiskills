@@ -175,4 +175,26 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  //1)Get user from collection
+  const user = await User.findById(req.user.id).select('+password');
+  //2)Check if POSTED current password is correct
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError('Password is wrong.please try again', 401));
+  }
+  //3)If so,update password
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+  //
+  /*
+    Q:why we can not use User.findByIdAndUpdate
+    ans:1.this.property is not work bacause at this time moongoose not have currnet object
+    2.middleware which we use to password hashed before the save in database is not work because it updated by findByIdAndUpdate not saved
+  */
+
+  //4)Log user in,send JWT
+  createSendToken(user, 200, res);
+});
+
 exports.getAllUsers = factory.getAll(User);
