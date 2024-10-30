@@ -17,6 +17,17 @@ exports.sendRequest = catchAsync(async (req, res, next) => {
     message: req.body.message,
     status: req.body.status,
   });
+
+  // add request in recevier requestsReceived field
+  await User.findByIdAndUpdate(req.user._id, {
+    $addToSet: { requestsSent: request._id },
+  });
+
+  //add requesr in sender requestsSent field
+  await User.findByIdAndUpdate(req.receiver._id, {
+    $addToSet: { requestsReceived: request._id },
+  });
+
   res.status(200).json({
     status: 'success',
     data: {

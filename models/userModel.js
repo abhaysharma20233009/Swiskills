@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -52,6 +53,18 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'ChatMessage',
+    },
+  ],
+  requestsSent: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Request',
+    },
+  ],
+  requestsReceived: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Request',
     },
   ],
   passwordConfirm: {
@@ -98,33 +111,6 @@ userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
-
-// Middleware to update Skill model when a skill is added to a user
-userSchema.post(
-  'save',
-  catchAsync(async function (doc) {
-    console.log('User saved:', doc);
-    if (doc?.skills?.length) {
-      console.log('Updating skills for:', doc.skills);
-      await Promise.all(
-        doc.skills.map(async (skill) => {
-          console.log('Finding skill:', skill);
-          const skillDoc = await Skill.findOne({ name: skill });
-          if (skillDoc) {
-            console.log('Skill found:', skillDoc);
-            skillDoc.users.addToSet(doc._id);
-            await skillDoc.save();
-            console.log('Updated skill:', skillDoc);
-          } else {
-            console.log('Skill not found:', skill);
-          }
-        })
-      );
-    } else {
-      console.log('No skills to update for user:', doc._id);
-    }
-  })
-);
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
