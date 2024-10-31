@@ -36,6 +36,18 @@ exports.sendRequest = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateRequestStatus = catchAsync(async (req, res, next) => {
+  const request = await Request.findByIdAndUpdate(req.params.id, {
+    status: req.params.status,
+  });
+  res.status(200).json({
+    status: 'success',
+    data: {
+      request,
+    },
+  });
+});
+
 exports.deleteRequest = factory.deleteOne(Request);
 exports.getRequest = factory.getOne(Request, {
   path: 'sender receiver',

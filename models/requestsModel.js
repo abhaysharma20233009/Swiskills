@@ -14,7 +14,7 @@ const requestSchema = new mongoose.Schema({
   requestedSkills: [{ type: String }],
   status: {
     type: String,
-    enum: ['pending', 'accepted', 'rejected', 'completed'],
+    enum: ['pending', 'accepted', 'rejected'],
     default: 'pending',
   },
   timestamp: {
