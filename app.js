@@ -1,16 +1,20 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
-const skillsRouter = require('./routes/skillsRoutes');
-const userRouter = require('./routes/userRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
+const skillsRouter = require('./routes/skillsRoutes');
+const userRouter = require('./routes/userRoutes');
+const requestsRouter = require('./routes/requestsRoutes');
+const swapsRouter = require('./routes/swapsRoutes');
 
 //Body parser,reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/v1/skills', skillsRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/requests', requestsRouter);
+app.use('/api/v1/swaps', swapsRouter);
 
 app.use('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
