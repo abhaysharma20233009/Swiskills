@@ -10,11 +10,14 @@ const errorHandler = require('./middleware/errorHandler');
 const dotenv = require('dotenv');
 dotenv.config();
 //Body parser,reading data from body into req.body
+
+
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/v1/skills', skillsRouter);
 app.use('/api/v1/users', userRouter);
-app.use('/messages', messagesRouter);
+app.use('/api/v1/messages/', messagesRouter);
+
 
 
 app.use('*', (req, res, next) => {
