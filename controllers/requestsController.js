@@ -2,6 +2,7 @@ const Request = require('../models/requestsModel');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/userModel');
 const factory = require('./handlerFactory');
+const Swap = require('../models/swapsModel');
 
 exports.getReceiver = catchAsync(async (req, res, next) => {
   const receiver = await User.findById(req.params.id);
@@ -32,6 +33,56 @@ exports.sendRequest = catchAsync(async (req, res, next) => {
     status: 'success',
     data: {
       request,
+    },
+  });
+});
+
+exports.updateRequestStatus = catchAsync(async (req, res, next) => {
+  const request = await Request.findByIdAndUpdate(
+    req.params.id,
+    {
+      status: req.params.status,
+    },
+    { new: true }
+  );
+
+  if (request.status === 'accepted') {
+    await Swap.create({
+      participants: [request.sender, request.receiver],
+      requestedSkills: request.requestedSkills,
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      request,
+    },
+  });
+});
+
+exports.getReceivedRequests = catchAsync(async (req, res, next) => {
+  const currentUser = await User.findById(req.user._id).populate(
+    'requestsReceived'
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      receivedRequests: currentUser.requestsReceived,
+    },
+  });
+});
+
+exports.getSentRequests = catchAsync(async (req, res, next) => {
+  const currentUser = await User.findById(req.user._id).populate(
+    'requestsSent'
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      receivedRequests: currentUser.requestsSent,
     },
   });
 });
