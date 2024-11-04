@@ -1,0 +1,27 @@
+{
+  "name": "swiskills",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Ravindra Rinwa",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "json": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.3",
+    "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.7",
+    "token": "^0.1.0",
+    "validator": "^13.12.0",
+    "web": "^0.0.2"
+  },
+  "description": ""
+}
