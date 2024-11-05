@@ -5,7 +5,7 @@ const app = express();
 
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
-const errorHandler = require('./middleware/errorHandler');
+
 
 const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -13,7 +13,6 @@ const requestsRouter = require('./routes/requestsRoutes');
 const swapsRouter = require('./routes/swapsRoutes');
 const messagesRouter = require('./routes/messages');
 const notificationRouter = require('./routes/notificationRoutes');
-const messagesRouter = require('./routes/messages');
 const errorHandler = require('./middleware/errorHandler');
 const dotenv = require('dotenv');
 dotenv.config();
