@@ -14,6 +14,6 @@ router
 
 router.route('/:recipientId/:notificationId')
     .patch(notificationController.markAsRead) // Mark as read
-    .delete(notificationController.deleteNotification); // Delete a notification
+   
 
 module.exports = router;
