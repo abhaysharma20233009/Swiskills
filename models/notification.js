@@ -2,14 +2,13 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-    recipient: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User', 
-        required: true,
-    },
+    // store all the notifications and senders for a recipient in an array
+        recipient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+   notification:[{
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     message: {
         type: String,
-        required: true,
+        default:"new message",
     },
     timestamp: {
         type: Date,
@@ -19,6 +18,7 @@ const notificationSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+   }],
 });
 
 const notification = mongoose.model('notification', notificationSchema);
