@@ -12,10 +12,5 @@ router
 .put('/:recipientId/:messageId', messagesController.updateMessage)
 .delete('/:recipientId/:messageId', messagesController.deleteMessage)
 
-// // PUT /messages/:id
-// router.put('/:id', messagesController.updateMessage);
-
-// // DELETE /messages/:id
-// router.delete('/:id', messagesController.deleteMessage);
 
 module.exports = router;
