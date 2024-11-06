@@ -30,7 +30,7 @@ function SignupForm() {
   };
 
   return (
-    <div className="flex bg-zinc-800 w-full">
+    <div className="flex bg-zinc-700 w-full">
       {/* Glowing Balls Animation */}
       <div className="h-20 w-20 mx-8 my-4 flex items-center justify-center">
         <div className="absolute h-10 w-10 rounded-full bg-red-400 animate-bounce1 glow"></div>
@@ -138,9 +138,7 @@ function SignupForm() {
               </button>
             </form>
             <p className="text-sm text-center text-gray-400 mt-6">
-              
-              Already have an account? <a href="#" className="text-red-400 hover:underline">Login here</a>
-
+              Already have an account? <a href="./login" className="text-red-400 hover:underline">Login here</a>
             </p>
           </div>
         </div>

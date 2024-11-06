@@ -17,7 +17,7 @@ const Chats = () => {
       </div>
       <div className="flex-1 w-full">
         {selectedChat ? (
-          <ChatBox chatUser={selectedChat} />
+          <ChatBox key={selectedChat.id} chatUser={selectedChat} />
         ) : (
           <p className="text-center mt-10 text-gray-100">Select a chat to start messaging</p>
         )}
@@ -27,3 +27,4 @@ const Chats = () => {
 };
 
 export default Chats;
+
