@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperclip, faPaperPlane, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const socket = io('http://localhost:3000');
 
@@ -9,6 +10,11 @@ const ChatBox = ({ chatUser }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
+
+  // Reset messages when chatUser changes
+  useEffect(() => {
+    setMessages([]); // Clear messages for the new chat
+  }, [chatUser]);
 
   useEffect(() => {
     // Listen for incoming messages
@@ -65,26 +71,29 @@ const ChatBox = ({ chatUser }) => {
       </div>
 
       {/* Messages List */}
+      
       <div className="flex-1 overflow-y-auto mb-4 p-2 border rounded-md bg-transparent">
+        <div className='flex justify-center items-center  font-thin  text-gray-500'><p className='bg-gray-900 p-1  rounded-lg m-1'>start messaging</p></div>
         {messages.map((message, index) => (
-          <div key={index} className="flex items-center justify-between my-2 p-2 bg-gray-800 w-1/2 rounded-md relative">
+          <div key={index} className="flex items-center justify-between my-2 p-2 bg-gray-900 w-max rounded-md relative">
+            
             <div>
               {message.text && <p className="text-gray-100">{message.text}</p>}
               {message.file && (
                 message.type.startsWith('image/')
-                  ? <img src={message.file} alt="Chat media" className="w-32 h-32" />
-                  : <a href={message.file} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">Download File</a>
+                  ? <img src={message.file} alt="Chat media" className="w-96 h-auto rounded-lg" />
+                  : <a href={message.file} target="_blank" rel="noopener noreferrer" className="text-green-400 underline">Download File</a>
               )}
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center">
               {/* Seen/Unseen Ticks */}
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-green-400 mx-2">
                 {message.status === 'seen' ? '✓✓' : '✓'}
               </span>
               {/* Delete Message Icon */}
               <FontAwesomeIcon
-                icon={faTrash}
-                className="text-gray-400 cursor-pointer hover:text-red-400"
+                icon={faEllipsisV}
+                className="text-gray-400 cursor-pointer hover:text-red-800"
                 onClick={() => deleteMessage(index, /* Pass true if delete for everyone */ false)}
               />
             </div>
@@ -93,12 +102,12 @@ const ChatBox = ({ chatUser }) => {
       </div>
 
       {/* Input and Actions */}
-      <div className="flex items-center space-x-2 bg-transparent border border-white">
+      <div className="flex items-center bg-transparent border border-white rounded-lg">
         <input
           type="text"
           placeholder="Type a message"
-          className="flex-1 p-2 border rounded-lg 
-          bg-transparent focus:outline-none text-gray-800"
+          className="flex-1 p-3 
+          bg-transparent focus:outline-none text-gray-100"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
@@ -109,10 +118,10 @@ const ChatBox = ({ chatUser }) => {
           className='hidden'
           onChange={handleFileChange}
         />
-        <label htmlFor="fileInput" className="text-gray-600 cursor-pointer">
+        <label htmlFor="fileInput" className="text-gray-600 cursor-pointer mr-4">
           <FontAwesomeIcon icon={faPaperclip} />
         </label>
-        <button onClick={sendMessage} className="bg-green-400 p-2 rounded-full text-white">
+        <button onClick={sendMessage} className="bg-green-400 mr-2 p-1  rounded-full text-white">
           <FontAwesomeIcon icon={faPaperPlane} />
         </button>
       </div>
