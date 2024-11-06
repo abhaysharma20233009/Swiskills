@@ -18,7 +18,6 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
   };
 
   const togglePasswordVisibility = () => {
@@ -30,7 +29,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex bg-zinc-800 w-full">
+    <div className="flex bg-zinc-700 w-full">
       {/* Glowing Balls Animation */}
 
       <div className="h-20 w-20 mx-8 my-4 flex items-center justify-center">
@@ -41,7 +40,7 @@ function LoginForm() {
       <div className="my-8 text-4xl text-white font-extrabold">SwiSkills</div>
       <div className="flex flex-col items-center min-h-screen w-full bg-transparent text-white p-4">
         <div className="mt-12 mb-4 text-4xl ">
-          Welcome to msy shdkjl sjdl SwiSkills
+          Welcome to SwiSkills
         </div>
 
         {/* Form Div */}
@@ -49,20 +48,10 @@ function LoginForm() {
           <div className="absolute inset-0 rounded-lg "></div>
           <div className="bg-gray-900 rounded-lg shadow-lg px-6 py-2 max-w-md w-full relative z-10 transition-all duration-200 transform hover:scale-105">
             <h2 className="text-1xl font-bold text-white mb-3 text-center">
-              Create an Account
+              Login an Account
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-gray-300">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
-                  required
-                />
-              </div>
+              
               <div>
                 <label className="block text-gray-300">Email</label>
                 <input
@@ -106,7 +95,7 @@ function LoginForm() {
             </form>
             <p className="text-sm text-center text-gray-400 mt-6">
               Don't have an account?{" "}
-              <a href="#" className="text-red-400 hover:underline">
+              <a href="./signup" className="text-red-400 hover:underline">
                 Sign up
               </a>
             </p>
