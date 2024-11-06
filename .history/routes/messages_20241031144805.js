@@ -9,8 +9,13 @@ router.use(authController.protect);
 router
 .get('/:recipientId',messagesController.getAllMessages)
 .post('/:recipientId', messagesController.createMessage)
-.put('/:recipientId/:messageId', messagesController.updateMessage)
-.delete('/:recipientId/:messageId', messagesController.deleteMessage)
+.put('/:messageId', messagesController.updateMessage)
+.delete('/:messageId', messagesController.deleteMessage)
 
+// // PUT /messages/:id
+// router.put('/:id', messagesController.updateMessage);
+
+// // DELETE /messages/:id
+// router.delete('/:id', messagesController.deleteMessage);
 
 module.exports = router;
