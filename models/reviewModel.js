@@ -48,7 +48,8 @@ reviewSchema.pre(/^find/, function (next) {
 //here this point to Model
 reviewSchema.statics.calcAverageRatings = async function (
   reviewReceiverId,
-  skillName
+  skillName,
+  reviewId
 ) {
   const stats = await this.aggregate([
     {
@@ -70,21 +71,7 @@ reviewSchema.statics.calcAverageRatings = async function (
         $set: {
           'skills.$[elem].ratingQuantity': stats[0].nRating,
           'skills.$[elem].rating': stats[0].avgRating,
-        },
-      },
-      {
-        arrayFilters: [
-          { 'elem.skillName': skillName }, // Match the skillName you want to update
-        ],
-      }
-    );
-  } else {
-    await User.findByIdAndUpdate(
-      reviewReceiverId,
-      {
-        $set: {
-          'skills.$[elem].ratingQuantity': 0, // Default value if no stats
-          'skills.$[elem].rating': 0, // Default value if no stats
+          'skills.$[elem].reviews': reviewId,
         },
       },
       {
@@ -99,7 +86,11 @@ reviewSchema.statics.calcAverageRatings = async function (
 // this.constructer point to current MODEL
 reviewSchema.post('save', function () {
   //this points to current review
-  this.constructor.calcAverageRatings(this.reviewReceiver, this.skillName);
+  this.constructor.calcAverageRatings(
+    this.reviewReceiver,
+    this.skillName,
+    this._id
+  );
 });
 
 //findByIdAndUpdate
