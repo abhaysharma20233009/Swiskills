@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import "./signuplogin.css";
+import React, { useState, useEffect } from 'react';
+import { login } from '../../api/login';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import './signuplogin.css';
 
 function LoginForm() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,51 +17,25 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
+    login(formData.email, formData.password);
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
   return (
     <div className="flex bg-zinc-800 w-full">
-      {/* Glowing Balls Animation */}
-
-      <div className="h-20 w-20 mx-8 my-4 flex items-center justify-center">
-        <div className="absolute h-10 w-10 rounded-full bg-red-400 animate-bounce1 glow"></div>
-        <div className="absolute h-10 w-10 rounded-full bg-blue-100 animate-bounce2 glow"></div>
-        <div className="absolute h-10 w-10 rounded-full bg-green-400 animate-bounce3 glow"></div>
-      </div>
       <div className="my-8 text-4xl text-white font-extrabold">SwiSkills</div>
       <div className="flex flex-col items-center min-h-screen w-full bg-transparent text-white p-4">
-        <div className="mt-12 mb-4 text-4xl ">
-          Welcome to msy shdkjl sjdl SwiSkills
-        </div>
-
-        {/* Form Div */}
+        <div className="mt-12 mb-4 text-4xl ">Welcome to SwiSkills</div>
         <div className="relative w-96 bg-red-100 mb-3">
-          <div className="absolute inset-0 rounded-lg "></div>
+          <div className="absolute inset-0 rounded-lg"></div>
           <div className="bg-gray-900 rounded-lg shadow-lg px-6 py-2 max-w-md w-full relative z-10 transition-all duration-200 transform hover:scale-105">
             <h2 className="text-1xl font-bold text-white mb-3 text-center">
               Create an Account
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-gray-300">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
-                  required
-                />
-              </div>
               <div>
                 <label className="block text-gray-300">Email</label>
                 <input
@@ -78,7 +51,7 @@ function LoginForm() {
                 <label className="block text-gray-300">Password</label>
                 <div className="relative">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -105,7 +78,7 @@ function LoginForm() {
               </button>
             </form>
             <p className="text-sm text-center text-gray-400 mt-6">
-              Don't have an account?{" "}
+              Don't have an account?{' '}
               <a href="#" className="text-red-400 hover:underline">
                 Sign up
               </a>
