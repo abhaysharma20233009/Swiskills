@@ -33,9 +33,10 @@ function LoginForm() {
           <div className="absolute inset-0 rounded-lg"></div>
           <div className="bg-gray-900 rounded-lg shadow-lg px-6 py-2 max-w-md w-full relative z-10 transition-all duration-200 transform hover:scale-105">
             <h2 className="text-1xl font-bold text-white mb-3 text-center">
-              Create an Account
+              Login an Account
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
+
               <div>
                 <label className="block text-gray-300">Email</label>
                 <input
@@ -78,8 +79,8 @@ function LoginForm() {
               </button>
             </form>
             <p className="text-sm text-center text-gray-400 mt-6">
-              Don't have an account?{' '}
-              <a href="#" className="text-red-400 hover:underline">
+              Don't have an account?{" "}
+              <a href="./signup" className="text-red-400 hover:underline">
                 Sign up
               </a>
             </p>

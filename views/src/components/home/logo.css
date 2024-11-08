@@ -1,0 +1,49 @@
+/* Orbit Animations */
+@keyframes orbit1 {
+  0% { transform: rotate(0deg) translateX(8px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(8px) rotate(-360deg); }
+}
+
+@keyframes orbit2 {
+  0% { transform: rotate(120deg) translateX(8px) rotate(-120deg); }
+  100% { transform: rotate(480deg) translateX(8px) rotate(-480deg); }
+}
+
+@keyframes orbit3 {
+  0% { transform: rotate(240deg) translateX(8px) rotate(-240deg); }
+  100% { transform: rotate(600deg) translateX(8px) rotate(-600deg); }
+}
+
+/* Glow Effect */
+.glow {
+  box-shadow: 0 0 10px rgba(1, 0, 0, 0.3),
+              0 0 20px rgba(0, 0, 0, 0.5),
+              0 0 30px rgba(7, 6, 22, 0.7);
+}
+
+/* Animation Classes */
+.animate-orbit1 {
+  animation: orbit1 3s linear infinite;
+}
+.animate-orbit2 {
+  animation: orbit2 3s linear infinite;
+}
+.animate-orbit3 {
+  animation: orbit3 3s linear infinite;
+}
+
+/* Orbit Container */
+.orbit-container {
+  margin: 0px 10px;
+  position: relative;
+  width: 1px;
+  height:1px;
+  
+}
+
+.orbit-container div {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  transform-origin: -20px -20px; /* Set pivot for orbit */
+}
