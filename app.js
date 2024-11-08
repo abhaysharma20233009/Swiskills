@@ -6,7 +6,6 @@ const app = express();
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
-
 const skillsRouter = require('./routes/skillsRoutes');
 const userRouter = require('./routes/userRoutes');
 const requestsRouter = require('./routes/requestsRoutes');
@@ -16,6 +15,11 @@ const messagesRouter = require('./routes/messages');
 const notificationRouter = require('./routes/notificationRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+
+//cookie-parser
+app.use(cookieParser());
+
 dotenv.config();
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
@@ -41,5 +45,4 @@ app.use('*', (req, res, next) => {
 app.use(errorHandler);
 app.use(globalErrorHandler);
 
-module.exports =  app; // Export both app and server instances
-
+module.exports = app; // Export both app and server instances

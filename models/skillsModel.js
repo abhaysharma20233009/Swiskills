@@ -1,10 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const { isLowercase } = require('validator');
 
 const skillSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
   },
   category: {
     type: String,
@@ -34,10 +36,10 @@ const skillSchema = new mongoose.Schema({
     type: String,
   },
   users: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     default: [],
   },
 });
 
-const Skill = mongoose.model("Skill", skillSchema);
+const Skill = mongoose.model('Skill', skillSchema);
 module.exports = Skill;
