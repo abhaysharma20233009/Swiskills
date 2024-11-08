@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { registerUser } from '../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './signuplogin.css';
@@ -13,28 +12,25 @@ function SignupForm() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await registerUser(formData);
-      setMessage('User registered successfully!');
-    } catch (error) {
-      setMessage('Registration failed. Please try again.');
-    }
   };
 
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () =>
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
 
   return (
-    <div className="flex bg-zinc-800 w-full">
+    <div className="flex bg-zinc-700 w-full">
       {/* Glowing Balls Animation */}
       <div className="h-20 w-20 mx-8 my-4 flex items-center justify-center">
         <div className="absolute h-10 w-10 rounded-full bg-red-400 animate-bounce1 glow"></div>
@@ -53,11 +49,6 @@ function SignupForm() {
             <h2 className="text-1xl font-bold text-white mb-3 text-center">
               Create an Account
             </h2>
-
-            {message && (
-              <p className="text-center text-green-400 mb-2">{message}</p>
-            )}
-
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-gray-300">Name</label>
@@ -68,6 +59,7 @@ function SignupForm() {
                   onChange={handleChange}
                   className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
                   required
+                  aria-label="Name"
                 />
               </div>
               <div>
@@ -79,6 +71,7 @@ function SignupForm() {
                   onChange={handleChange}
                   className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
                   required
+                  aria-label="Email"
                 />
               </div>
               <div>
@@ -91,6 +84,7 @@ function SignupForm() {
                     onChange={handleChange}
                     className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
                     required
+                    aria-label="Password"
                   />
                   <span
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
@@ -114,6 +108,7 @@ function SignupForm() {
                     onChange={handleChange}
                     className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
                     required
+                    aria-label="Confirm Password"
                   />
                   <span
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
@@ -135,7 +130,7 @@ function SignupForm() {
             </form>
             <p className="text-sm text-center text-gray-400 mt-6">
               Already have an account?{' '}
-              <a href="#" className="text-red-400 hover:underline">
+              <a href="./login" className="text-red-400 hover:underline">
                 Login here
               </a>
             </p>

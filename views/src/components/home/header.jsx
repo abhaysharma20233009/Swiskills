@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import Dp from '../../assets/rcbg.jpg';
+import Dp from '../../assets/rcbg.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faBell } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
 
 const Header = ({ toggleSidebar }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate(); // Initialize useNavigate
-
-  useEffect(() => {
-    const storedUser = Cookies.get('user');
-    setIsLoggedIn(storedUser ? 1 : 0);
-  }, []);
 
   return (
     <div className="flex items-center h-16 bg-zinc-800 p-4 shadow-md">
@@ -47,13 +41,11 @@ const Header = ({ toggleSidebar }) => {
         {/* Profile or Login/Signup */}
         <div className="flex items-center ml-auto">
           {isLoggedIn ? (
-            <button onClick={() => navigate('/me')}>
-              <img
-                src={''}
-                alt="Profile"
-                className="w-8 h-8 md:w-12 md:h-12 rounded-full"
-              />
-            </button>
+            <img
+              src={Dp}
+              alt="Profile"
+              className="w-8 h-8 md:w-12 md:h-12 rounded-full"
+            />
           ) : (
             <div className="flex space-x-2 md:space-x-4">
               <button
