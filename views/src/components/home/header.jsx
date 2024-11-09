@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Dp from "../../assets/rcbg.jpg";
+// import Dp from "../../assets/rcbg.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars ,faBell} from "@fortawesome/free-solid-svg-icons";
 
