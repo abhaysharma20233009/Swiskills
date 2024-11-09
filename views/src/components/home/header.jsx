@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars ,faBell} from "@fortawesome/free-solid-svg-icons";
 
+
 const Header = ({ toggleSidebar }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate(); // Initialize useNavigate
@@ -35,19 +36,29 @@ const Header = ({ toggleSidebar }) => {
 
         {/*notificstion */}
         <div className="">
-        <FontAwesomeIcon icon={faBell} className="text-white mx-4"/>
+          <FontAwesomeIcon icon={faBell} className="text-white mx-4" />
         </div>
 
         {/* Profile or Login/Signup */}
         <div className="flex items-center ml-auto">
           {isLoggedIn ? (
-            <img src={Dp} alt="Profile" className="w-8 h-8 md:w-12 md:h-12 rounded-full" />
+            <img
+              src={Dp}
+              alt="Profile"
+              className="w-8 h-8 md:w-12 md:h-12 rounded-full"
+            />
           ) : (
             <div className="flex space-x-2 md:space-x-4">
-              <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-sm md:text-base" onClick={() => navigate("/signup")}>
+              <button
+                className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-sm md:text-base"
+                onClick={() => navigate('/signup')}
+              >
                 Signup
               </button>
-              <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm md:text-base" onClick={() => navigate("/login")}>
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm md:text-base"
+                onClick={() => navigate('/login')}
+              >
                 Login
               </button>
             </div>

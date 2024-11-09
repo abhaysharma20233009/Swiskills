@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -28,20 +27,26 @@ const userSchema = new mongoose.Schema({
   profilePicture: {
     type: String,
   },
-  skills: [{ type: String }],
+  skills: [
+    {
+      skillName: {
+        type: String,
+        required: [true, 'review should belog to a skill'],
+      },
+      rating: { type: Number, default: 0 },
+      ratingQuantity: { type: Number, default: 0 },
+      reviews: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Review',
+          required: true,
+        },
+      ],
+    },
+  ],
   bio: {
     type: String,
     maxlength: 500,
-  },
-  rating: {
-    type: Number,
-    default: 0,
-    min: 0,
-    max: 5,
-  },
-  ratingQunatity: {
-    type: Number,
-    default: 0,
   },
   notifications: [
     {
@@ -87,6 +92,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     select: false,
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
   },
 });
 

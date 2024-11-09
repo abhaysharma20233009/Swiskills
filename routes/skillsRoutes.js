@@ -5,7 +5,13 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
+router.use(authController.protect);
+
+router
+  .route('/')
+  .get(skillsController.getAllSkills)
+  .post(skillsController.getSkillByName);
+
 router.route('/:id').get(skillsController.getSkill);
-router.route('/').get(authController.protect, skillsController.getAllSkills);
 
 module.exports = router;

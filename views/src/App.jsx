@@ -10,9 +10,10 @@ import Layout from './components/home/layout';
 import ReviewsList from './components/menu/reviewCardList.jsx';
 import AccountSettings from './components/menu/accountSetting.jsx';
 import ExploreCardList from './components/dashboard/skillsCardList.jsx';
+
 import Profile from './components/menu/profile';
 import TopRatedUsers from './components/userList/TopRatedUsers.jsx';
-// import './App.css';
+
 
 function App() {
   return (
