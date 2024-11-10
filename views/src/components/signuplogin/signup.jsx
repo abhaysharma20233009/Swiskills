@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { signup } from '../../api/signup';
 import './signuplogin.css';
 
 function SignupForm() {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    passwordConfirm: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showpasswordConfirm, setShowpasswordConfirm] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,14 +20,20 @@ function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    signup(
+      formData.username,
+      formData.email,
+      formData.password,
+      formData.passwordConfirm
+    );
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+  const togglepasswordConfirmVisibility = () => {
+    setShowpasswordConfirm(!showpasswordConfirm);
   };
 
   return (
@@ -51,11 +58,11 @@ function SignupForm() {
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-gray-300">Name</label>
+                <label className="block text-gray-300">Username</label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="username"
+                  value={formData.username}
                   onChange={handleChange}
                   className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
                   required
@@ -102,9 +109,9 @@ function SignupForm() {
                 <label className="block text-gray-300">Confirm Password</label>
                 <div className="relative">
                   <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
+                    type={showpasswordConfirm ? 'text' : 'password'}
+                    name="passwordConfirm"
+                    value={formData.passwordConfirm}
                     onChange={handleChange}
                     className="w-full mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
                     required
@@ -112,10 +119,10 @@ function SignupForm() {
                   />
                   <span
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                    onClick={toggleConfirmPasswordVisibility}
+                    onClick={togglepasswordConfirmVisibility}
                   >
                     <FontAwesomeIcon
-                      icon={showConfirmPassword ? faEye : faEyeSlash}
+                      icon={showpasswordConfirm ? faEye : faEyeSlash}
                       className="text-gray-300"
                     />
                   </span>
