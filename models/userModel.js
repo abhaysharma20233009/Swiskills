@@ -34,13 +34,13 @@ const userSchema = new mongoose.Schema({
       },
       rating: { type: Number, default: 0 },
       ratingQuantity: { type: Number, default: 0 },
-    },
-  ],
-  reviews: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Review',
-      required: true,
+      reviews: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Review',
+          required: true,
+        },
+      ],
     },
   ],
   profile: {
@@ -48,22 +48,19 @@ const userSchema = new mongoose.Schema({
     title: { type: String, default: '' },
     location: { type: String, default: '' },
     about: { type: String, default: '' },
-    experience: [
-      {
-        title: { type: String, default: '' },
-        company: { type: String, default: '' },
-        duration: { type: String, default: '' },
-        description: { type: String, default: '' },
-      },
-    ],
-    education: [
-      {
-        degree: { type: String, default: '' },
-        university: { type: String, default: '' },
-        graduation: { type: String, default: '' },
-      },
-    ],
+    experience:[ {
+      title: { type: String, default: '' },
+      company: { type: String, default: '' },
+      duration: { type: String, default: '' },
+      description: { type: String, default: '' },
+    },],
+    education: [{
+      degree: { type: String, default: '' },
+      university: { type: String, default: '' },
+      graduation: { type: String, default: '' },
+    },],
   },
+  
   notifications: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -113,7 +110,17 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
+  lastSeen: {
+    type: Date,
+    default: Date.now,  // Set default value to the current timestamp
+  },
 });
+
+// Update lastSeen when the user logs in or performs an action
+userSchema.methods.updateLastSeen = function () {
+  this.lastSeen = Date.now();
+  return this.save();
+};
 
 userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
@@ -160,6 +167,26 @@ userSchema.methods.createPasswordResetToken = function () {
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
+
+
+
+// Virtual field to display `lastSeen` in a human-readable format
+userSchema.virtual('lastSeenReadable').get(function() {
+  const options = {
+    year: 'numeric',
+    month: 'short',  // Jan, Feb, Mar, etc.
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,   // 24-hour time format
+    timeZone: 'Asia/Kolkata',  // Time zone for IST
+    timeZoneName: 'short',
+  };
+
+  return new Intl.DateTimeFormat('en-IN', options).format(this.lastSeen);
+});
+
+
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
