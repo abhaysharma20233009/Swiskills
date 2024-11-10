@@ -62,10 +62,7 @@ const Header = ({ toggleSidebar }) => {
               >
                 Signup
               </button>
-              <button
-                className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm md:text-base"
-                onClick={() => navigate('/login')}
-              >
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg text-sm md:text-base" onClick={() => navigate("/login")}>
                 Login
               </button>
             </div>

@@ -33,7 +33,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/notifications/', notificationRouter);
 app.use('/api/v1/requests', requestsRouter);
 app.use('/api/v1/swaps', swapsRouter);
-app.use('/api/v1/messages', messagesRouter);
+
 app.use('/api/v1/reviews', reviewRouter);
 
 // 404 handler for undefined routes

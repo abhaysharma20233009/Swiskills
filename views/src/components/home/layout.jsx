@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-zinc-700">
+    <div className="flex h-screen bg-zinc-800">
       {/* Sidebar for Desktop & Mobile */}
       <div
         className={`fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 transform ${
