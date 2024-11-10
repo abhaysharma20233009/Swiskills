@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import updateField from '../../api/accountSettings/updateField';
+import updateProfileField from '../../api/accountSettings/updateProfileField';
+import updatePassword from '../../api/accountSettings/updatePassword';
 const AccountSettings = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -10,20 +11,23 @@ const AccountSettings = () => {
   const handleEmailUpdate = (e) => {
     e.preventDefault();
     // Handle email update logic
-    updateField(email);
+    updateProfileField({ email: email });
   };
 
   const handleUsernameUpdate = (e) => {
     e.preventDefault();
     // Handle username update logic
-    console.log(username);
-    updateField(username);
+    updateProfileField({ name: username });
     alert(`Username updated to: ${username}`);
   };
 
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
-    updateField(password, newPassword, confirmPassword);
+    updatePassword({
+      passwordCurrent: password,
+      password: newPassword,
+      passwordConfirm: confirmPassword,
+    });
     // Handle password update logic
     alert('Password updated successfully!');
   };
