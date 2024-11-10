@@ -1,8 +1,11 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const ExploreCard = ({ name, image, enrolledUsers }) => {
+  const navigate = useNavigate();
   return (
+   
     <div className="max-w-xs rounded-lg bg-zinc-800 shadow-md p-4 text-white">
+      
       {/* Image Section */}
       <div className="w-full h-48 mb-4 overflow-hidden rounded-lg">
         <img
@@ -23,11 +26,12 @@ const ExploreCard = ({ name, image, enrolledUsers }) => {
 
       {/* Explore Button */}
       <div className="flex justify-end">
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg" onClick={() => navigate('/top-rated-users')} >
           Explore
         </button>
       </div>
     </div>
+    
   );
 };
 
