@@ -1,10 +1,18 @@
 import React from 'react';
 
-const RequestCard = ({ date, time, receiverName, status, requiredSkill }) => {
+const RequestCard = ({
+  date,
+  time,
+  receiverName,
+  receiverEmail,
+  status,
+  requiredSkill,
+  message,
+}) => {
   const statusClasses = {
-    Pending: 'text-yellow-700 bg-yellow-100',
-    Accepted: 'text-green-700 bg-green-100',
-    Rejected: 'text-red-700 bg-red-100',
+    pending: 'text-yellow-700 bg-yellow-100',
+    accepted: 'text-green-700 bg-green-100',
+    rejected: 'text-red-700 bg-red-100',
   };
 
   return (
@@ -14,12 +22,17 @@ const RequestCard = ({ date, time, receiverName, status, requiredSkill }) => {
           Request to {receiverName}
         </h3>
         <span
-          className={`px-3 py-1 rounded-md text-sm font-semibold ${statusClasses[status]}`}
+          className={`px-3 py-1 rounded-md text-sm font-semibold ${
+            statusClasses[status.toLowerCase()]
+          }`}
         >
           {status}
         </span>
       </div>
       <div className="text-gray-300">
+        <p>
+          <span className="font-semibold">Email:</span> {receiverEmail}
+        </p>
         <p>
           <span className="font-semibold">Date:</span> {date}
         </p>
@@ -29,6 +42,11 @@ const RequestCard = ({ date, time, receiverName, status, requiredSkill }) => {
         <p>
           <span className="font-semibold">Required Skill:</span> {requiredSkill}
         </p>
+        {message && (
+          <p>
+            <span className="font-semibold">Message:</span> {message}
+          </p>
+        )}
       </div>
     </div>
   );
