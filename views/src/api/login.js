@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { showAlert } from './alert';
 export const login = async (email, password) => {
   try {
     const res = await axios({
@@ -13,15 +13,25 @@ export const login = async (email, password) => {
     });
 
     if (res.data.status === 'success') {
-      console.log(res.data.data);
-      console.log('Logged in successfully!');
-      console.log;
-      // Store user data in cookies (or localStorage as preferred)
-      // window.setTimeout(() => {
-      //   location.assign('/'); // Redirect after login
-      // }, 1500);
+      showAlert('success', 'Logged in successfully!');
+      window.setTimeout(() => {
+        location.assign('/dashboard');
+      }, 1500);
     }
   } catch (err) {
-    console.log('Error:', err.response?.data?.message || err.message);
+    showAlert('error', err.response.data.message);
+  }
+};
+
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: '/api/v1/users/logout',
+    });
+
+    if (res.data.status === 'success') location.reload(true);
+  } catch (err) {
+    showAlert('error', 'Error logging out! Try again.');
   }
 };

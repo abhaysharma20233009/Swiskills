@@ -4,13 +4,13 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const Skill = require('./skillsModel');
 const catchAsync = require('../utils/catchAsync');
-//name,email,photo,password,passwordConfrim
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
-    required: true,
+    required: [true, 'User should have a username'],
     trim: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -31,22 +31,38 @@ const userSchema = new mongoose.Schema({
     {
       skillName: {
         type: String,
-        required: [true, 'review should belog to a skill'],
       },
       rating: { type: Number, default: 0 },
       ratingQuantity: { type: Number, default: 0 },
-      reviews: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Review',
-          required: true,
-        },
-      ],
     },
   ],
-  bio: {
-    type: String,
-    maxlength: 500,
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+      required: true,
+    },
+  ],
+  profile: {
+    name: { type: String, default: '' },
+    title: { type: String, default: '' },
+    location: { type: String, default: '' },
+    about: { type: String, default: '' },
+    experience: [
+      {
+        title: { type: String, default: '' },
+        company: { type: String, default: '' },
+        duration: { type: String, default: '' },
+        description: { type: String, default: '' },
+      },
+    ],
+    education: [
+      {
+        degree: { type: String, default: '' },
+        university: { type: String, default: '' },
+        graduation: { type: String, default: '' },
+      },
+    ],
   },
   notifications: [
     {
@@ -76,11 +92,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please confirm your password'],
     validate: {
-      //  This only works on CREATE and SAVE!!!
       validator: function (el) {
         return el === this.password;
       },
-      message: 'Passwords are not same',
+      message: 'Passwords are not the same',
     },
   },
   passwordChangedAt: {
@@ -107,17 +122,13 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.pre('save', async function (next) {
-  //Only run this function if password was actually modify
   if (!this.isModified('password')) return next();
-  //hash the password with cost of 12
   this.password = await bcrypt.hash(this.password, 12);
-  //Delete passwordConfirm field
   this.passwordConfirm = undefined;
   next();
 });
-//Apply to every query which start from find
+
 userSchema.pre(/^find/, function (next) {
-  //this points to the current query
   this.find({ active: { $ne: false } });
   next();
 });
@@ -126,7 +137,6 @@ userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
-  // this.password is not available due to select
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
