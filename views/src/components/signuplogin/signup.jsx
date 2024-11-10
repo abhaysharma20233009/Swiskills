@@ -40,9 +40,7 @@ function SignupForm() {
       <div className="my-8 text-4xl text-white font-extrabold">SwiSkills</div>
 
       <div className="flex flex-col items-center min-h-screen w-full bg-transparent text-white p-4">
-        <div className="mt-12 mb-4 text-4xl">
-          Welcome to SwiSkills
-        </div>
+        <div className="mt-12 mb-4 text-4xl">Welcome to SwiSkills</div>
 
         {/* Form Div */}
         <div className="relative w-96 bg-gray-900 mb-3">
@@ -81,9 +79,7 @@ function SignupForm() {
                 <label className="block text-gray-300">Password</label>
                 <div className="relative">
                   <input
-
-                    type={showPassword ? "text" : "password"}
-
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -96,9 +92,7 @@ function SignupForm() {
                     onClick={togglePasswordVisibility}
                   >
                     <FontAwesomeIcon
-
                       icon={showPassword ? faEye : faEyeSlash}
-
                       className="text-gray-300"
                     />
                   </span>
@@ -122,9 +116,7 @@ function SignupForm() {
                     onClick={toggleConfirmPasswordVisibility}
                   >
                     <FontAwesomeIcon
-
                       icon={showConfirmPassword ? faEye : faEyeSlash}
-
                       className="text-gray-300"
                     />
                   </span>

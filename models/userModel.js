@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'User should have a username'],
     trim: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -107,6 +106,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     select: false,
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
   },
   role: {
     type: String,

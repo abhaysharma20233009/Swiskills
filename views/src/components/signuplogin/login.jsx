@@ -3,9 +3,16 @@ import { login } from '../../api/login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './signuplogin.css';
+import React, { useState, useEffect } from 'react';
+import { login } from '../../api/login';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import './signuplogin.css';
 
 function LoginForm() {
   const [formData, setFormData] = useState({
+    email: '',
+    password: '',
     email: '',
     password: '',
   });
@@ -17,6 +24,7 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    login(formData.email, formData.password);
     login(formData.email, formData.password);
   };
 
@@ -35,13 +43,16 @@ function LoginForm() {
       <div className="my-8 text-4xl text-white font-extrabold">SwiSkills</div>
       <div className="flex flex-col items-center min-h-screen w-full bg-transparent text-white p-4">
         <div className="mt-12 mb-4 text-4xl ">Welcome to SwiSkills</div>
+        <div className="mt-12 mb-4 text-4xl ">Welcome to SwiSkills</div>
         <div className="relative w-96 bg-red-100 mb-3">
+          <div className="absolute inset-0 rounded-lg"></div>
           <div className="absolute inset-0 rounded-lg"></div>
           <div className="bg-gray-900 rounded-lg shadow-lg px-6 py-2 max-w-md w-full relative z-10 transition-all duration-200 transform hover:scale-105">
             <h2 className="text-1xl font-bold text-white mb-3 text-center">
               Login an Account
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
+
 
               <div>
                 <label className="block text-gray-300">Email</label>
@@ -58,6 +69,7 @@ function LoginForm() {
                 <label className="block text-gray-300">Password</label>
                 <div className="relative">
                   <input
+                    type={showPassword ? 'text' : 'password'}
                     type={showPassword ? 'text' : 'password'}
                     name="password"
                     value={formData.password}

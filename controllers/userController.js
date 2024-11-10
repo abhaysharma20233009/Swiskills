@@ -1,8 +1,8 @@
-const User = require("../models/userModel");
-const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
-const factory = require("./handlerFactory");
-const Skill = require("../models/skillsModel");
+const User = require('../models/userModel');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
+const factory = require('./handlerFactory');
+const Skill = require('../models/skillsModel');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -52,6 +52,7 @@ console.log(filteredBody);
 
   res.status(200).json({
     status: 'success',
+    status: 'success',
     data: {
       user: updatedUser,
     },
@@ -62,12 +63,14 @@ console.log(filteredBody);
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
-    status: "success",
+    status: 'success',
     data: null,
   });
 });
 
-exports.getUser = factory.getOne(User);
+exports.getUser = factory.getOne(User, {
+  path: 'requestsReceived requestsSent',
+});
 // Do NOT update passwords with this!
 
 exports.getAllUsers = factory.getAll(User);

@@ -23,6 +23,7 @@ function Sidebar() {
       {/* Brand Name */}
       <div className="ml-16">
         <a className="text-white font-extrabold text-2xl">SwiSkills</a>
+        <a className="text-white font-extrabold text-2xl">SwiSkills</a>
       </div>
       <ul className="mt-4 space-y-4">
         <li className="flex items-center p-2 rounded-md hover:bg-gray-900 cursor-pointer">

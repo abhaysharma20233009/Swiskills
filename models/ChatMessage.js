@@ -6,6 +6,11 @@ const chatMessageSchema = new mongoose.Schema({
   messages: [
     {
       sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  //define a unique roomId fro two user's conversation 
+    roomId: { type:String, required: true },
+  messages: [
+    {
+      sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     recipient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
       content: { type: String, required: true },
       status: {
