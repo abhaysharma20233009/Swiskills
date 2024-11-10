@@ -112,7 +112,12 @@ const userSchema = new mongoose.Schema({
   },
   lastSeen: {
     type: Date,
-    default: Date.now,  // Set default value to the current timestamp
+    default: Date.now, 
+  },// Set default value to the current timestamp
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
   },
 });
 

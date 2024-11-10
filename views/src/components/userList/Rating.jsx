@@ -25,4 +25,6 @@ function Rating({ rating, maxRating = 5 }) {
   );
 }
 
+
 export default Rating;
+
