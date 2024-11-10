@@ -10,12 +10,11 @@ import Layout from './components/home/layout';
 import ReviewsList from './components/menu/reviewCardList.jsx';
 import AccountSettings from './components/menu/accountSetting.jsx';
 import ExploreCardList from './components/dashboard/skillsCardList.jsx';
-import SendRequestForm from './components/feature/sendRequests.jsx';
-import SendReview from './components/feature/sendReview.jsx';
-import ForgotPassword from './components/feature/forgotPassword.jsx';
-import ResetPassword from './components/feature/resetPassword.jsx';
 import './App.css';
-import Profile from './components/menu/profile';
+import Chats from './components/chat/chats.jsx';
+
+import ProfileView from './components/menu/profile.jsx';
+import ProfileEdit from './components/menu/ProfileEdit.jsx';
 import TopRatedUsers from './components/userList/TopRatedUsers.jsx';
 
 function App() {
@@ -26,20 +25,16 @@ function App() {
           <Routes>
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/me" element={<Me />} />
+            <Route path="/profile" element={<ProfileView/>} />
             <Route path="/sentRequest" element={<SentRequests />} />
             <Route path="/receivedRequest" element={<RequestList />} />{' '}
             <Route path="/receivedReview" element={<ReviewsList />} />{' '}
             <Route path="/accountSettings" element={<AccountSettings />} />{' '}
-            <Route path="/dashboard" element={<ExploreCardList />} />{' '}
-
-            <Route path="/sendRequest" element={<SendRequestForm />} />{' '}
-            <Route path="/sendReview" element={<SendReview />} />{' '}
-            <Route path="/forgotPassword" element={<ForgotPassword />} />{' '}
-            <Route path="/resetPassword/:token" element={<ResetPassword />} />
-
-            <Route path="/profile" element={<Profile/>} />{' '}
-            <Route path="/home" element={<TopRatedUsers/>} />{' '}
+            <Route path="/chats" element={<Chats />} />{' '}
+            <Route path="/" element={<ExploreCardList />} />{' '}
+            
+            <Route path="/edit-profile" element={<ProfileEdit />} />{' '}
+            <Route path="/top-rated-users" element={<TopRatedUsers />} />{' '}
             {/* Fixed path */}
             {/* Add other routes as needed */}
           </Routes>
