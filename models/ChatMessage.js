@@ -10,7 +10,7 @@ const chatMessageSchema = new mongoose.Schema({
       content: { type: String, required: true },
       status: {
         type: String,
-        enum: ['pending', 'sent','edited'],
+        enum: ['pending', 'sent','edited','seen'],
         default: 'pending',
       },
       timestamp: { type: Date, default: Date.now },
