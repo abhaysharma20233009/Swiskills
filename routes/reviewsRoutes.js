@@ -10,6 +10,8 @@ const authController = require('../controllers/authController');
 
 router.use(authController.protect);
 
+router.get('/getReviewsFromUser', reviewController.getReviewsFromUser);
+
 router
   .route('/')
   .get(reviewController.getAllReviews)

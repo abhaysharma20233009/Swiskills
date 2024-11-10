@@ -48,13 +48,27 @@ const createSendToken = (user, statusCode, res) => {
 exports.signup = catchAsync(async (req, res, next) => {
   // const newUser = await User.create(req.body); //User.save(Wrong code because by this anyone make himself admin without any security flow)
   const newUser = await User.create({
-    name: req.body.name,
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     passwordChangedAt: req.body.passwordChangedAt,
-    skills: req.body.skills,
-    bio: req.body.bio,
+    role: req.body.role,
+    profilePicture: req.body.profilePicture,
+    skills: req.body.skills, // should be an array of { skillName, rating, ratingQuantity }
+    reviews: req.body.reviews, // should be an array of review IDs
+    profile: {
+      name: req.body.profile?.name,
+      title: req.body.profile?.title,
+      location: req.body.profile?.location,
+      about: req.body.profile?.about,
+      experience: req.body.profile?.experience, // array of experience objects
+      education: req.body.profile?.education, // array of education objects
+    },
+    notifications: req.body.notifications, // array of notification IDs
+    chatMessages: req.body.chatMessages, // array of chat message IDs
+    requestsSent: req.body.requestsSent, // array of request IDs
+    requestsReceived: req.body.requestsReceived, // array of request IDs
   });
 
   createSendToken(newUser, 201, res);
@@ -209,6 +223,14 @@ exports.restrictTo = (...roles) => {
     }
     next();
   };
+};
+
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000 * 60),
+    httpOnly: true,
+  });
+  res.status(200).json({ status: 'success' });
 };
 
 exports.restrictTo = (...roles) => {

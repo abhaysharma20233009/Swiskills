@@ -4,12 +4,12 @@ const requestSchema = new mongoose.Schema({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    required: [true, 'request should belog to receiver'],
   },
   receiver: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    required: [true, 'request should belog to receiver'],
   },
   requestedSkills: [{ type: String }],
   status: {
