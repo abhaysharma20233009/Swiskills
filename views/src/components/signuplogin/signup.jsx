@@ -30,10 +30,10 @@ function SignupForm() {
   };
 
   return (
-    <div className="flex bg-zinc-700 w-full">
+    <div className="flex border border-zinc-700 shadow-2xl w-full">
       {/* Glowing Balls Animation */}
       <div className="h-20 w-20 mx-8 my-4 flex items-center justify-center">
-        <div className="absolute h-10 w-10 rounded-full bg-red-400 animate-bounce1 glow"></div>
+        <div className="absolute h-10 w-10 rounded-full bg-yellow-400 animate-bounce1 glow"></div>
         <div className="absolute h-10 w-10 rounded-full bg-blue-100 animate-bounce2 glow"></div>
         <div className="absolute h-10 w-10 rounded-full bg-green-400 animate-bounce3 glow"></div>
       </div>
@@ -45,9 +45,9 @@ function SignupForm() {
         </div>
 
         {/* Form Div */}
-        <div className="relative w-96 bg-red-100 mb-3">
+        <div className="relative w-96 bg-gray-900 mb-3">
           <div className="absolute inset-0 rounded-lg"></div>
-          <div className="bg-gray-900 rounded-lg shadow-lg px-6 py-4 max-w-md w-full relative z-10 transition-all duration-200 transform hover:scale-105">
+          <div className="bg-gray-900 rounded-2xl shadow-lg px-6 py-4 max-w-md w-full relative z-10 transition-all duration-200 transform hover:scale-105">
 
             <h2 className="text-1xl font-bold text-white mb-3 text-center">
               Create an Account
@@ -138,7 +138,7 @@ function SignupForm() {
               </button>
             </form>
             <p className="text-sm text-center text-gray-400 mt-6">
-              Already have an account? <a href="./login" className="text-red-400 hover:underline">Login here</a>
+              Already have an account? <a href="./login" className="text-blue-400 hover:underline">Login here</a>
             </p>
           </div>
         </div>
