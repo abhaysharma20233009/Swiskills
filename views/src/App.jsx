@@ -10,6 +10,10 @@ import Layout from './components/home/layout';
 import ReviewsList from './components/menu/reviewCardList.jsx';
 import AccountSettings from './components/menu/accountSetting.jsx';
 import ExploreCardList from './components/dashboard/skillsCardList.jsx';
+import SendRequestForm from './components/feature/sendRequests.jsx';
+import SendReview from './components/feature/sendReview.jsx';
+import ForgotPassword from './components/feature/forgotPassword.jsx';
+import ResetPassword from './components/feature/resetPassword.jsx';
 import './App.css';
 
 function App() {
@@ -26,6 +30,10 @@ function App() {
             <Route path="/receivedReview" element={<ReviewsList />} />{' '}
             <Route path="/accountSettings" element={<AccountSettings />} />{' '}
             <Route path="/dashboard" element={<ExploreCardList />} />{' '}
+            <Route path="/sendRequest" element={<SendRequestForm />} />{' '}
+            <Route path="/sendReview" element={<SendReview />} />{' '}
+            <Route path="/forgotPassword" element={<ForgotPassword />} />{' '}
+            <Route path="/resetPassword/:token" element={<ResetPassword />} />
             {/* Fixed path */}
             {/* Add other routes as needed */}
           </Routes>
