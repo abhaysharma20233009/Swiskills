@@ -15,6 +15,8 @@ import SendReview from './components/feature/sendReview.jsx';
 import ForgotPassword from './components/feature/forgotPassword.jsx';
 import ResetPassword from './components/feature/resetPassword.jsx';
 import './App.css';
+import Profile from './components/menu/profile';
+import TopRatedUsers from './components/userList/TopRatedUsers.jsx';
 
 function App() {
   return (
@@ -30,10 +32,14 @@ function App() {
             <Route path="/receivedReview" element={<ReviewsList />} />{' '}
             <Route path="/accountSettings" element={<AccountSettings />} />{' '}
             <Route path="/dashboard" element={<ExploreCardList />} />{' '}
+
             <Route path="/sendRequest" element={<SendRequestForm />} />{' '}
             <Route path="/sendReview" element={<SendReview />} />{' '}
             <Route path="/forgotPassword" element={<ForgotPassword />} />{' '}
             <Route path="/resetPassword/:token" element={<ResetPassword />} />
+
+            <Route path="/profile" element={<Profile/>} />{' '}
+            <Route path="/home" element={<TopRatedUsers/>} />{' '}
             {/* Fixed path */}
             {/* Add other routes as needed */}
           </Routes>
