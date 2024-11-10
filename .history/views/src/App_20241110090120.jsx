@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignupForm from './components/signuplogin/signup';
 import LoginForm from './components/signuplogin/login';
-import Me from './components/menu/Profile.jsx';
+import Me from './components/menu/profile';
 import SentRequests from './components/menu/sentRquestCardList.jsx'; // Fixed path
 import RequestList from './components/menu/receiveCardList.jsx';
 import Layout from './components/home/layout';
@@ -13,7 +13,7 @@ import ExploreCardList from './components/dashboard/skillsCardList.jsx';
 import './App.css';
 import Chats from './components/chat/chats.jsx';
 
-import ProfileView from './components/menu/Profile.jsx';
+import ProfileView from './components/menu/profile.jsx';
 import ProfileEdit from './components/menu/ProfileEdit.jsx';
 import TopRatedUsers from './components/userList/TopRatedUsers.jsx';
 
