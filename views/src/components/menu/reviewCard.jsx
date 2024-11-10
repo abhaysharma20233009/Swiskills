@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function ReviewCard({ review }) {
-  const [rating] = useState(review.rating);
+  const [rating] = useState(Math.round(review.rating || 0)); // Round to nearest whole star
 
   // Function to generate filled stars based on the rating
   const generateStars = (rating) => {
@@ -23,18 +23,34 @@ function ReviewCard({ review }) {
     return stars;
   };
 
+  // Format the date if available
+  const formattedDate = review.createdAt
+    ? new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format(
+        new Date(review.createdAt)
+      )
+    : 'No date available';
+
   return (
     <div className="bg-zinc-800 p-4 rounded-lg shadow-lg max-w-sm w-full">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-white">
-            {review.userName}
+            {review.reviewProvider?.username || 'Anonymous User'}
           </h2>
-          <p className="text-gray-400">{review.date}</p>
+          <p className="text-gray-400">{formattedDate}</p>
+          {/* Display skill name */}
+          <p className="text-gray-400">
+            Skill:{' '}
+            {review.skills?.length > 0
+              ? review.skills.join(', ')
+              : 'Unknown Skill'}
+          </p>
         </div>
         <div className="flex space-x-1">{generateStars(rating)}</div>
       </div>
-      <p className="mt-2 text-gray-300">{review.comment}</p>
+      <p className="mt-2 text-gray-300">
+        {review.review || 'No comment provided.'}
+      </p>
     </div>
   );
 }

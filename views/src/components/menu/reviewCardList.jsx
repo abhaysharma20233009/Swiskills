@@ -1,34 +1,33 @@
-import React from 'react';
-import ReviewCard from './reviewCard';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import ReviewCard from './ReviewCard';
 
 function ReviewsList() {
-  const reviews = [
-    {
-      userName: 'Jane Doe',
-      date: 'October 12, 2024',
-      rating: 5,
-      comment:
-        'This skill is amazing! I learned a lot and would definitely recommend it.',
-    },
-    {
-      userName: 'John Smith',
-      date: 'October 10, 2024',
-      rating: 4,
-      comment: 'Great experience, but could use some more examples.',
-    },
-    {
-      userName: 'Alice Johnson',
-      date: 'October 8, 2024',
-      rating: 3,
-      comment:
-        'The skill was good, but I think the content could be more detailed.',
-    },
-  ];
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get('/api/v1/reviews/getReviewsFromUser');
+        setReviews(response.data.data.data); // Assuming API returns `data` with array of reviews
+      } catch (err) {
+        console.log('Error:', err.response?.data?.message || err.message);
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   return (
     <div className="p-6 space-y-4">
       {reviews.map((review, index) => (
-        <ReviewCard key={index} review={review} />
+        <ReviewCard
+          key={index}
+          review={review}
+          userName={
+            review.reviewProvider ? review.reviewProvider.username : 'Anonymous'
+          }
+        />
       ))}
     </div>
   );
