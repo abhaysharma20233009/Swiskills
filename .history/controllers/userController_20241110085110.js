@@ -21,6 +21,7 @@ exports.getMe = (req, res, next) => {
   req.params.id = req.user.id;
   next();
 };
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) Create error if user POSTs password data
   console.log("hi",req.body);
@@ -57,13 +58,11 @@ console.log(filteredBody);
 
   res.status(200).json({
     status: 'success',
-    status: 'success',
     data: {
       user: updatedUser,
     },
   });
 });
-
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });

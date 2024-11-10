@@ -1,7 +1,6 @@
 // TopRatedUsers.js
 import React, { useState, useEffect } from 'react';
 import UserProfileCard from './UserProfileCard';
-import axios from 'axios';
 
 function TopRatedUsers() {
   const [users, setUsers] = useState([]); // All user data
@@ -21,29 +20,30 @@ function TopRatedUsers() {
     setDisplayedUsers(newUsers);
   }, [page, users]);
 
-  const transformUserData = (data) => {
-    return data.map(user => {
-      return {
-        _id: user._id,
-        profilePhoto: user.profilePicture || 'default.jpg',  // default photo if none is provided
-        name: user.profile.name || user.username,  // use name from profile or username if not available
-        rating: user.skills.reduce((acc, skill) => acc + (skill.rating || 0), 0) / (user.skills.length || 1),  // average rating of skills
-        skills: user.skills.map(skill => skill.skillName),  // extract skill names
-        location: user.profile.location || 'Not specified',  // default location if none is provided
-      };
-    });
-  };
-  
-  // Example usage:
   const fetchUsers = async () => {
-    const response = await axios('/api/v1/users'); // Adjust endpoint as needed
-    const rawData = response.data.data.data;
-    const transformedData = transformUserData(rawData);
-    setUsers(transformedData);
+    // Fetch top-rated users from the database
+    const response = await fetch('/api/users?sortBy=rating&limit=100'); // Adjust endpoint as needed
+    const data = [
+      {
+        "_id": "60c72b2f9b1d8b3a2c7c3c4f",
+        "profilePhoto": "url1.jpg",
+        "name": "Alice",
+        "rating": 4.8,
+        "skills": ["JavaScript", "Node.js"],
+        "location": "New York"
+      },
+      {
+        "_id": "60c72b2f9b1d8b3a2c7c3c5g",
+        "profilePhoto": "url2.jpg",
+        "name": "Bob",
+        "rating": 4.6,
+        "skills": ["Python", "Data Science"],
+        "location": "California"
+      }
+    ]
+    ;
+    setUsers(data); // Assuming data is an array of user objects
   };
-  
-  
-  
 
   const handleRequestConnection = (user) => {
     // Logic to handle connection request, e.g., send a request to the backend

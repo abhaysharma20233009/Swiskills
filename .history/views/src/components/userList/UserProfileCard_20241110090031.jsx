@@ -155,7 +155,4 @@ function UserProfile({ userId, initialConnectionStatus }) {
   );
 }
 
-
-
 export default UserProfile;
-

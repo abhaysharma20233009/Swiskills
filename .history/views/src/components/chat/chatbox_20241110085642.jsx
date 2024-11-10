@@ -64,47 +64,13 @@ const ChatBox = ({ chatUser }) => {
     socket.on('messageReceived', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
-
-
     socket.on('messageError', (error) => {
-      setErrorMessage(error.message);  // Set the error message
-      setTimeout(() => setErrorMessage(null), 2000);  // Clear after 2 seconds
-    });
-
-    socket.on('messageUpdate', (updatedMessage) => {
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
-          msg._id === updatedMessage._id ? { ...msg, status: updatedMessage.status, content: updatedMessage.content } : msg
-        )
-      );
-    });
-// State to store the last seen timestamp
-
-    socket.on('isSeen', (updatedMessage) => {
-     
-      setMessages(updatedMessage);
-     
-      
-    });
-
-    socket.on('messageStatusUpdate', (updatedMessage) => {
-      setMessages((prevMessages) => {
-        if (prevMessages.length === 0) return prevMessages;
-
-        const updatedMessages = [...prevMessages];
-        const lastMessageIndex = updatedMessages.length - 1;
-
-        updatedMessages[lastMessageIndex] = {
-          ...updatedMessages[lastMessageIndex],
-          sender: updatedMessage.sender,
-          recipient: updatedMessage.recipient,
-          status: updatedMessage.status,
-          timestamp: updatedMessage.timestamp,
-          _id: updatedMessage._id,
-        };
-        return updatedMessages;
-      });
-
+      if (error.message === 'Unauthorized') {
+        window.location.href = '/login';
+      } else {
+        setErrorMessage(error.message);
+        setTimeout(() => setErrorMessage(null), 2000);
+      }
     });
 
     socket.on('messageUpdate', (updatedMessage) => {

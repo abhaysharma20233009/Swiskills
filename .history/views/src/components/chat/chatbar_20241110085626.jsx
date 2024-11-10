@@ -3,12 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const Chatlist = ({ onSelectChat }) => {
-
-import { faPencil, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-
-const Chatlist = ({ onSelectChat }) => {
- 
   const [chats, setChats] = useState([]); // Ensure chats is always an array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,6 +31,8 @@ const Chatlist = ({ onSelectChat }) => {
       }
     };
 
+    fetchChats(); // Call the function to fetch data
+  }, []); // Empty dependency array to run only once on component mount
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -80,14 +76,15 @@ const Chatlist = ({ onSelectChat }) => {
           >
             {/* Profile Picture */}
             <img
-
               src={chat.profilePicture || 'copy.jpg'} // Fallback if profile picture is not provided
               alt="Profile"
               className="rounded-full h-10 w-10 md:h-12 md:w-12 mr-3"
             />
             {/* Chat Details */}
             <div className="flex-1">
-
+              <p className="text-white font-semibold text-sm md:text-base">{chat.username}</p>
+             
+            </div>
             {/* Options Icon */}
             <button onClick={(e) => {
               e.stopPropagation(); // Prevents triggering onSelectChat
