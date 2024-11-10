@@ -26,9 +26,9 @@ const reviewSchema = new mongoose.Schema(
       ref: 'User',
       required: [true, 'Review must belong to a user'],
     },
-    skillName: {
-      type: String,
-      required: [true, 'Review must belong to a skill'],
+    skills: {
+      type: [String],
+      required: [true, 'Review must belong to a skills'],
     },
   },
   {
@@ -71,7 +71,9 @@ reviewSchema.statics.calcAverageRatings = async function (
         $set: {
           'skills.$[elem].ratingQuantity': stats[0].nRating,
           'skills.$[elem].rating': stats[0].avgRating,
-          'skills.$[elem].reviews': reviewId,
+        },
+        $push: {
+          reviews: reviewId, // Push the reviewId into the reviews array
         },
       },
       {
