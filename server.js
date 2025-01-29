@@ -38,5 +38,5 @@ apiServer.listen(apiPort, () => {
 // Start WebSocket server
 const wsPort = 9000;
 ioServer.listen(wsPort, () => {
-    console.log(`WebSocket Server running on port ${apiPort}`);
+    console.log(`WebSocket Server running on port ${wsPort}`);
 });
