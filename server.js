@@ -36,7 +36,7 @@ apiServer.listen(apiPort, () => {
 });
 
 // Start WebSocket server
-const wsPort = process.env.WS_PORT || 9000;
+const wsPort = 9000;
 ioServer.listen(wsPort, () => {
     console.log(`WebSocket Server running on port ${apiPort}`);
 });
