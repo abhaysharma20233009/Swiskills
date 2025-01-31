@@ -1,11 +1,11 @@
-const http = require('http');
-const express = require('express');
+
+let server = require('http').createServer();
+
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = require('./app');  // Express app
 const setupSocket = require('./websocket/websocket');  // WebSocket setup
 
-// Load environment variables
 dotenv.config({ path: './config.env' });
 
 // Database connection
@@ -22,21 +22,13 @@ mongoose.connect(DB, { useNewUrlParser: true }).then(() => {
     console.log('DB connection successful!');
 });
 
-// Create the HTTP server for API
-const apiServer = http.createServer(app);
 
-// WebSocket server on a separate port (9000)
-const ioServer = http.createServer();
-setupSocket(ioServer);  // Set up WebSocket for communication
 
-// Start the HTTP server (API server)
-const apiPort = process.env.API_PORT || 3000;
-apiServer.listen(apiPort, () => {
-    console.log(`API Server running on port ${apiPort}`);
-});
+server.on('request', app);
 
-// Start WebSocket server
-const wsPort = 9000;
-ioServer.listen(wsPort, () => {
-    console.log(`WebSocket Server running on port ${wsPort}`);
+setupSocket(server);
+
+const Port = process.env.PORT || 3000;
+server.listen(Port, () => {
+    console.log(`Server running on port ${Port}`);
 });
