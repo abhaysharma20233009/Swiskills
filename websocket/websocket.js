@@ -8,7 +8,7 @@ function setupSocket(server) {
     const io = socketIo(server, {
         path: "/socket.io",
         cors: {
-            origin: "http://localhost:5173",  // Match your frontend origin
+            origin: "https://swiskills.onrender.com",  // Match your frontend origin
             methods: ["GET", "POST"],
             allowedHeaders: ["cookie", "my-custom-header"],
             credentials: true
