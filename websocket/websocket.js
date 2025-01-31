@@ -1,13 +1,12 @@
-
 const socketIo = require('socket.io');
 const cookie = require('cookie');
 const jwt = require('jsonwebtoken');
 const messagesController = require('../controllers/messagesController');
-
 const User = require('../models/userModel');
+
 function setupSocket(server) {
     const io = socketIo(server, {
-        path: "/socket.io",  // Path for socket.io connections
+        path: "/socket.io",
         cors: {
             origin: "http://localhost:5173",  // Match your frontend origin
             methods: ["GET", "POST"],
