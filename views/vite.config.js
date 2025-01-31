@@ -7,14 +7,13 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api/v1': {
-        target: 'http://localhost:3000',  // API server
+        target: 'https://swiskills.onrender.com',  // API server
         changeOrigin: true,
         secure: false,
        
       },
       '/socket.io': {
-        target: 'http://localhost:9000',  // WebSocket server
-        ws: true,  // WebSocket connection
+        target: 'https://swiskills.onrender.com',  // WebSocket server
         changeOrigin: true,
         secure: false,
       }
