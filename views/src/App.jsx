@@ -20,35 +20,40 @@ import ForgotPassword from './components/feature/forgotPassword.jsx';
 import Home from './components/home/Home.jsx'
 import ResetPassword from './components/feature/resetPassword.jsx';
 import UserProfile from './components/userList/UserProfile.jsx'
+const MainLayout = ({ children }) => <Layout>{children}</Layout>;
+
+
 function App() {
   return (
-    <div className="h-screen bg-black">
+    <>
       <Router>
        
-        <Layout>
-          <Routes>
+       
+       
+          
+           <Routes>
+          
           <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/login" element={<LoginForm />} />
-            <Route path="/profile" element={<ProfileView/>} />
-            <Route path="/sentRequest" element={<SentRequests />} />
-            <Route path="/receivedRequest" element={<RequestList />} />{' '}
-            <Route path="/receivedReview" element={<ReviewsList />} />{' '}
-            <Route path="/accountSettings" element={<AccountSettings />} />{' '}
-            <Route path="/chats" element={<Chats />} />{' '}
-            <Route path="/home" element={<ExploreCardList />} />{' '}
-            <Route path="/sendRequest" element={<SendRequestForm/>}/>{' '}
-            <Route path="/edit-profile" element={<ProfileEdit />} />{' '}
-            <Route path="/top-rated-users" element={<TopRatedUsers />} />{' '}
-            <Route path="/forget-password" element={<ForgotPassword />} />{' '}
-             <Route path="/resetPassword/:token" element={<ResetPassword/>}/>{' '}
-             <Route path="/top-rated-users/:userId" element={<UserProfile />} />
-            {/* Fixed path */}
-            {/* Add other routes as needed */}
+            <Route path="/profile" element={<MainLayout><ProfileView/></MainLayout>} />
+            <Route path="/sentRequest" element={<MainLayout><SentRequests /></MainLayout>} />
+            <Route path="/receivedRequest" element={<MainLayout><RequestList /></MainLayout>} />{' '}
+            <Route path="/receivedReview" element={<MainLayout><ReviewsList /></MainLayout>} />{' '}
+            <Route path="/accountSettings" element={<MainLayout><AccountSettings /></MainLayout>} />{' '}
+            <Route path="/chats" element={<MainLayout><Chats /></MainLayout>} />{' '}
+            <Route path="/home" element={<MainLayout><ExploreCardList /></MainLayout>} />{' '}
+            <Route path="/sendRequest" element={<MainLayout><SendRequestForm/></MainLayout>}/>{' '}
+            <Route path="/edit-profile" element={<MainLayout><ProfileEdit /></MainLayout>} />{' '}
+            <Route path="/top-rated-users" element={<MainLayout><TopRatedUsers /></MainLayout>} />{' '}
+            <Route path="/forget-password" element={<MainLayout><ForgotPassword /></MainLayout>} />{' '}
+             <Route path="/resetPassword/:token" element={<MainLayout><ResetPassword/></MainLayout>}/>{' '}
+             <Route path="/top-rated-users/:userId" element={<MainLayout><UserProfile /></MainLayout>} />
+          
           </Routes>
-        </Layout>
+       
       </Router>
-    </div>
+    </>
   );
 }
 
