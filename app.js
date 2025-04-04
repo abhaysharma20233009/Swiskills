@@ -1,6 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const path = require('path'); // required to serve static files
+
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -22,7 +24,7 @@ app.use(cookieParser());
 // Body parser middleware to read data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 
-// Cloudinary configuration (if required)
+// Cloudinary configuration
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
   cloud_name: 'dw4p8fd7r',
@@ -30,19 +32,22 @@ cloudinary.config({
   api_secret: 'AS1AYdTcMbrj-sZpkNBfxl-03Rs',
 });
 
-// API Routes
+// ✅ Serve frontend (React build)
+app.use(express.static(path.join(__dirname, 'views/dist')));
+
+// ✅ API Routes
 app.use('/api/v1/skills', skillsRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/requests', requestsRouter);
 app.use('/api/v1/swaps', swapsRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
-// 404 handler for undefined routes
-app.use('*', (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+// ✅ Fallback to frontend for any non-API route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/dist/index.html'));
 });
 
 // Global error handler middleware
 app.use(globalErrorHandler);
 
-module.exports = app;  // Export app for use in the server setup
+module.exports = app;
