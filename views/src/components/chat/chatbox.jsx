@@ -10,7 +10,7 @@ import EmojiPicker from "emoji-picker-react";
 import { ChevronDown } from "lucide-react";
 import pic from "../../../public/chatsbanner.png";
 
-const socket = io("http://localhost:3000", {
+const socket = io("https://swiskills.onrender.com", {
   withCredentials: true,
   path: "/socket.io",
 });
