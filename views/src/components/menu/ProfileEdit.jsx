@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaCamera } from 'react-icons/fa';
 import axios from 'axios';
-import SkillModal from './SkillModal'; // Ensure this import matches your file structure
+import SkillModal from './skillModal'; // Ensure this import matches your file structure
 import { showAlert } from '../../api/alert';
 
 function ProfileEdit() {
