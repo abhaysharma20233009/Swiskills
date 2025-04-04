@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperclip, faPaperPlane, faEllipsisV, faTrash, faClock, faCheck } from '@fortawesome/free-solid-svg-icons';
 
-const socket = io("http://localhost:3000", {
+const socket = io("https://swiskills.onrender.com/", {
   withCredentials: true,
   path: "/socket.io" // Ensure this matches the server path
 });
