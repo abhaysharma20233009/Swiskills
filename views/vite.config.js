@@ -10,7 +10,6 @@ export default defineConfig({
         target: 'https://swiskills.onrender.com',  // API server
         changeOrigin: true,
         secure: false,
-       
       },
       '/socket.io': {
         target: 'https://swiskills.onrender.com',  // WebSocket server
@@ -18,5 +17,9 @@ export default defineConfig({
         secure: false,
       }
     }
-  }
+  },
+  build: {
+    outDir: 'dist',
+  },
+  base: './', // 🟢 VERY IMPORTANT for correct asset paths in production
 });
